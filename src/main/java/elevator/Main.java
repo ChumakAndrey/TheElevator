@@ -3,10 +3,8 @@ package elevator;
 import elevator.model.Building;
 import elevator.service.BuildingService;
 import elevator.service.ElevatorService;
-import elevator.service.PassengerService;
 import elevator.service.impl.BuildingServiceImpl;
 import elevator.service.impl.ElevatorServiceImpl;
-import elevator.service.impl.PassengerServiceImpl;
 
 public class Main {
 

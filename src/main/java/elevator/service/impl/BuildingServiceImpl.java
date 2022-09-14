@@ -1,19 +1,19 @@
 package elevator.service.impl;
 
-import elevator.model.Building;
-import elevator.model.Passenger;
-import elevator.service.BuildingService;
-import elevator.service.PassengerService;
 import static elevator.util.Constants.FIRST_FLOOR;
 import static elevator.util.Constants.MAX_FLOORS_QUANTITY;
 import static elevator.util.Constants.MAX_PASSENGERS_PER_FLOOR;
 import static elevator.util.Constants.MIN_FLOORS_QUANTITY;
 import static elevator.util.Constants.MIN_PASSENGERS_PER_FLOOR;
 import static elevator.util.Randomizer.getRandomQuantity;
+
+import elevator.model.Building;
+import elevator.model.Passenger;
+import elevator.service.BuildingService;
+import elevator.service.PassengerService;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.TreeMap;
 
 public class BuildingServiceImpl implements BuildingService {
@@ -34,9 +34,10 @@ public class BuildingServiceImpl implements BuildingService {
             if (passengersQuantityOnTheFloor > 0) {
                 for (int j = 0; j < passengersQuantityOnTheFloor; j++) {
                     Passenger passenger = passengerService.createPassenger(i);
-                    passenger.setRequiredFloor(passengerService.
-                            determineRequiredFloor(FIRST_FLOOR, floorsQuantity, i));
-                    passenger.setDirection(passengerService.determineDirection(i, passenger.getRequiredFloor()));
+                    passenger.setRequiredFloor(passengerService
+                            .determineRequiredFloor(FIRST_FLOOR, floorsQuantity, i));
+                    passenger.setDirection(passengerService
+                            .determineDirection(i, passenger.getRequiredFloor()));
                     passengersOnTheFloor.add(passenger);
                 }
             }

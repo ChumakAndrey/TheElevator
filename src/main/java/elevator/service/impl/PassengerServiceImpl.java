@@ -1,11 +1,9 @@
 package elevator.service.impl;
 
-import elevator.model.Building;
 import elevator.model.Direction;
 import elevator.model.Passenger;
 import elevator.service.PassengerService;
 import elevator.util.Randomizer;
-
 
 public class PassengerServiceImpl implements PassengerService {
 

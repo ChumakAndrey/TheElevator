@@ -1,7 +1,7 @@
 package elevator.service;
 
-import elevator.model.Passenger;
 import elevator.model.Direction;
+import elevator.model.Passenger;
 
 public interface PassengerService {
     Passenger createPassenger(int i);

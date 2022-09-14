@@ -2,7 +2,6 @@ package elevator.model;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import lombok.Data;
 
 @Data
@@ -15,6 +14,4 @@ public class Building {
         this.passengersOnFloors = passengersOnFloors;
         System.out.println("Building was created. It has " + this.floorsQuantity + " floors");
     }
-
-
 }

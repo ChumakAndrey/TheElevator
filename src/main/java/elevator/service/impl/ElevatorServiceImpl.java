@@ -8,18 +8,13 @@ import elevator.service.ElevatorService;
 import elevator.service.PassengerService;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Queue;
-import java.util.Set;
 
 public class ElevatorServiceImpl implements ElevatorService {
     private final PassengerService passengerService = new PassengerServiceImpl();
     private final Building building;
     private final Elevator elevator;
-
-
 
     public ElevatorServiceImpl(Building building) {
         this.building = building;
@@ -31,27 +26,25 @@ public class ElevatorServiceImpl implements ElevatorService {
     public void moveOn() {
         checkFloorAndDirection();
         changeFloor();
-        System.out.println("Elevator is moving " + elevator.getDirection() + "....." + System.lineSeparator());
-        if (elevator.getCurrentPassengers().isEmpty() &&
-                building.getPassengersOnFloors().get(elevator.getCurrentFloor()).isEmpty()) {
+        System.out.println("Elevator is moving " + elevator.getDirection() + "....."
+                + System.lineSeparator());
+        if (elevator.getCurrentPassengers().isEmpty()
+                && building.getPassengersOnFloors().get(elevator
+                        .getCurrentFloor()).isEmpty()) {
             nextFloorWhenElevatorAndFloorAreEmpty();
         }
         System.out.println("Elevator on the " + elevator.getCurrentFloor() + " floor.");
         dropPassengers();
         takePassengers();
-        if(!elevator.getCurrentPassengers().isEmpty()) {
+        if (!elevator.getCurrentPassengers().isEmpty()) {
             countMaximalFloor();
         }
     }
 
-    private boolean isPassengersDirectionTheSame(Passenger passenger) {
-        return false;
-    }
-
     private void checkFloorAndDirection() {
         if (elevator.getCurrentFloor() == building.getFloorsQuantity()) {
-                elevator.setDirection(Direction.DOWN);
-                return;
+            elevator.setDirection(Direction.DOWN);
+            return;
         }
         if (elevator.getCurrentFloor() == 1) {
             elevator.setDirection(Direction.UP);
@@ -72,7 +65,9 @@ public class ElevatorServiceImpl implements ElevatorService {
                 .map(Passenger::getRequiredFloor)
                 .mapToInt(f -> f)
                 .max().orElseThrow(NoSuchElementException::new);
-        System.out.println("Elevator will move " + elevator.getDirection().toString() + " to " + finalFloor);
+        System.out.println("Elevator will move "
+                + elevator.getDirection().toString()
+                + " to " + finalFloor);
         return finalFloor;
     }
 
@@ -84,11 +79,13 @@ public class ElevatorServiceImpl implements ElevatorService {
 
     private List<Passenger> takePassengers() {
         int newPassengersQuantity = 0;
-        List<Passenger> passengersOnCurrentFloor = building.getPassengersOnFloors().get(elevator.getCurrentFloor());
-        if(passengersOnCurrentFloor != null) {
-            for(Passenger passenger : passengersOnCurrentFloor) {
-                if(elevator.getCurrentPassengers().size() < 5 &&
-                        passenger.getDirection().equals(elevator.getDirection())) {
+        List<Passenger> passengersOnCurrentFloor = building
+                .getPassengersOnFloors()
+                .get(elevator.getCurrentFloor());
+        if (passengersOnCurrentFloor != null) {
+            for (Passenger passenger : passengersOnCurrentFloor) {
+                if (elevator.getCurrentPassengers().size() < 5
+                        && passenger.getDirection().equals(elevator.getDirection())) {
                     elevator.getCurrentPassengers().add(passenger);
                     passenger.setInElevator(true);
                     newPassengersQuantity++;
@@ -101,14 +98,14 @@ public class ElevatorServiceImpl implements ElevatorService {
     }
 
     private void dropPassengers() {
-        if(elevator.getCurrentPassengers().isEmpty()) {
+        if (elevator.getCurrentPassengers().isEmpty()) {
             System.out.println("The elevator has not passengers! Try to find new.");
             return;
         }
         int quitedPassengersQuantity = 0;
         List<Passenger> newList = new ArrayList<>(elevator.getCurrentPassengers());
-        for(Passenger passenger : newList) {
-            if(passenger.getRequiredFloor() == elevator.getCurrentFloor()) {
+        for (Passenger passenger : newList) {
+            if (passenger.getRequiredFloor() == elevator.getCurrentFloor()) {
                 passenger.setInElevator(false);
                 passenger.setCurrentFloor(elevator.getCurrentFloor());
                 passenger.setRequiredFloor(passengerService.determineRequiredFloor(
